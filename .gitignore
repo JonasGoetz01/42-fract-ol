@@ -1,5 +1,7 @@
+.gitignore
 *.a
 *.o
 *.out
 .vscode/
 fractol
+README.md
