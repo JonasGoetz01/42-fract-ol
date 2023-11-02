@@ -1,31 +1,35 @@
-NAME = fractol
+NAME	:= fractol
+CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast
+LIBMLX	:= ./lib/MLX42
 
-SRC = $(wildcard *.c)
-OBJ = $(SRC:.c=.o)
+HEADERS	:= -I ./include -I $(LIBMLX)/include
+LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
+SRCS	:= $(shell find ./src -iname "*.c")
+OBJS	:= ${SRCS:.c=.o}
 
-LIBFT_DIR = ./libft
-LIBFT = $(LIBFT_DIR)/libftprintf.a
+all: libmlx $(NAME)
 
-CC = cc
-CFLAGS = -Wall -Wextra -Werror
+libft:
+	@make -C ./lib/libft
 
-all: $(NAME)
-
-$(NAME): $(OBJ)
-	@make -C $(LIBFT_DIR)
-	@$(CC) $(CFLAGS) -o $@ $^ $(LIBFT)
+libmlx:
+	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
 
 %.o: %.c
-	@$(CC) $(CFLAGS) -c -o $@ $<
+	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)"
+
+$(NAME): $(OBJS) libft
+	@$(CC) $(OBJS) $(LIBS) ./lib/libft/libftprintf.a $(HEADERS) -o $(NAME)
 
 clean:
-	@make -C $(LIBFT_DIR) clean
-	@rm -f $(OBJ)
+	@make -C ./lib/libft clean
+	@rm -rf $(OBJS)
+	@rm -rf $(LIBMLX)/build
 
 fclean: clean
-	@make -C $(LIBFT_DIR) fclean
-	@rm -f $(NAME)
+	@make -C ./lib/libft fclean
+	@rm -rf $(NAME)
 
-re: fclean all
+re: clean all
 
-.PHONY: all clean fclean re
+.PHONY: all, clean, fclean, re, libmlx
