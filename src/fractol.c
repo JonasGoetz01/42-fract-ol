@@ -6,7 +6,7 @@
 /*   By: jgotz <jgotz@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 16:33:48 by jgotz             #+#    #+#             */
-/*   Updated: 2023/11/02 16:28:06 by jgotz            ###   ########.fr       */
+/*   Updated: 2023/11/03 17:57:18 by jgotz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,120 +15,74 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define WIDTH 800
-#define HEIGHT 600
+#define WIDTH 360
+#define HEIGHT 360
 #define MAX_ITERATIONS 100
+#define LIMIT 16
 
-uint32_t	mandelbrot(double real, double imag)
+double	map(int value, int start1, int stop1, int start2, int stop2)
 {
-	uint32_t	n;
-	double		r;
-	double		i;
-	double		r2;
-	double		i2;
+	return (start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1)));
+}
 
-	r = 0.0;
-	i = 0.0;
+uint32_t	rgb_color(int r, int g, int b, int a)
+{
+	return ((r << 24) | (g << 16) | (b << 8) | a);
+}
+
+int	mandelbrot(double real, double imag)
+{
+	int		n;
+	double	oreal;
+	double	oimag;
+	double	real_squared;
+	double	imag_squared;
+
 	n = 0;
+	oreal = real;
+	oimag = imag;
 	while (n < MAX_ITERATIONS)
 	{
-		r2 = r * r;
-		i2 = i * i;
-		if (r2 + i2 > 4.0)
-		{
-			return (n);
-		}
-		i = 2 * r * i + imag;
-		r = r2 - i2 + real;
+		real_squared = real * real;
+		imag_squared = imag * imag;
+		if (real_squared + imag_squared > LIMIT * LIMIT)
+			break ;
+		imag = 2 * real * imag + oimag;
+		real = real_squared - imag_squared + oreal;
 		n++;
 	}
-	return (MAX_ITERATIONS);
-}
-
-uint32_t	mapToColor(uint32_t value, uint32_t max_iterations)
-{
-	double	t;
-	double	r;
-	double	g;
-	double	b;
-	uint8_t	red;
-	uint8_t	green;
-	uint8_t	blue;
-	double	colors[][3] = {{0.0, 0.0, 1.0}, {1.0, 1.0, 0.0}, {0.0, 1.0, 0.0}};
-
-	t = (double)value / (double)max_iterations;
-	r = colors[0][0] + t * (colors[1][0] - colors[0][0]);
-	g = colors[0][1] + t * (colors[1][1] - colors[0][1]);
-	b = colors[0][2] + t * (colors[1][2] - colors[0][2]);
-	red = (uint8_t)(r * 255);
-	green = (uint8_t)(g * 255);
-	blue = (uint8_t)(b * 255);
-	return ((red << 16) | (green << 8) | blue);
-}
-
-static void	clear_screen(mlx_t *mlx)
-{
-	uint32_t	x;
-	uint32_t	y;
-	mlx_image_t	*img;
-
-	img = mlx_new_image(mlx, WIDTH, HEIGHT);
-	x = 0;
-	y = 0;
-	while (y < HEIGHT)
-	{
-		x = 0;
-		while (x < WIDTH)
-		{
-			mlx_put_pixel(img, x, y, mapToColor(0, MAX_ITERATIONS));
-			x++;
-		}
-		y++;
-	}
-	mlx_image_to_window(mlx, img, 0, 0);
-}
-
-static void	gen_image(void *param)
-{
-	uint32_t		x;
-	uint32_t		y;
-	mlx_image_t		*img;
-	double			real;
-	double			imag;
-	uint32_t		value;
-	static double	limit;
-	mlx_t			*mlx;
-
-	mlx = param;
-	limit += 0.02;
-	img = mlx_new_image(mlx, WIDTH, HEIGHT);
-	x = 0;
-	y = 0;
-	while (y < HEIGHT)
-	{
-		x = 0;
-		while (x < WIDTH)
-		{
-			real = (x - WIDTH / limit) * pow(limit, 2) / WIDTH;
-			imag = (y - HEIGHT / limit) * pow(limit, 2) / HEIGHT;
-			value = mandelbrot(real, imag);
-			mlx_put_pixel(img, x, y, mapToColor(value, MAX_ITERATIONS));
-			x++;
-		}
-		y++;
-	}
-	mlx_image_to_window(mlx, img, 0, 0);
-	clear_screen(mlx);
+	return (n);
 }
 
 int	main(void)
 {
-	mlx_t	*mlx;
-	double	limit;
+	mlx_t		*mlx;
+	mlx_image_t	*img;
+	int			x;
+	int			y;
+	int			color;
+	double		real;
+	double		imag;
+	int			iterations;
 
-	limit = 1.0;
 	mlx = mlx_init(WIDTH, HEIGHT, "fract'ol", true);
-	mlx_loop_hook(mlx, gen_image, mlx);
+	img = mlx_new_image(mlx, WIDTH, HEIGHT);
+	y = 0;
+	while (y < HEIGHT)
+	{
+		x = 0;
+		while (x < WIDTH)
+		{
+			real = map(x, 0, WIDTH, -2.0, 2.0);
+			imag = map(y, 0, HEIGHT, -2.0, 2.0);
+			iterations = mandelbrot(real, imag);
+			color = map(iterations, 0, MAX_ITERATIONS, 0, 255);
+			mlx_put_pixel(img, x, y, rgb_color(255, color, color, color));
+			x++;
+		}
+		y++;
+	}
+	mlx_image_to_window(mlx, img, 0, 0);
 	mlx_loop(mlx);
 	return (0);
 }
