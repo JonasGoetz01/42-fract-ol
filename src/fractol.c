@@ -6,7 +6,7 @@
 /*   By: jgotz <jgotz@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 16:33:48 by jgotz             #+#    #+#             */
-/*   Updated: 2023/11/07 15:28:42 by jgotz            ###   ########.fr       */
+/*   Updated: 2023/11/07 18:52:05 by jgotz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,14 @@ int	main(int argc, char **argv)
 	if (!ft_strncmp(argv[1], "mandelbrot", 11))
 		mbt.set = 1;
 	else if (!ft_strncmp(argv[1], "julia", 6))
+	{
 		mbt.set = 2;
+		if (argc == 4)
+		{
+			mbt.ca = argv[2];
+			mbt.cb = argv[3];
+		}
+	}
 	else
 		print_usage();
 	mbt.zoom = 2.5;
@@ -52,6 +59,8 @@ int	main(int argc, char **argv)
 	mbt.height = HEIGHT;
 	mbt.offsetx = 0.0;
 	mbt.offsety = 0.0;
+	mbt.ca = -0.8;
+	mbt.cb = 0.156;
 	mlx = mlx_init(WIDTH, HEIGHT, "fract'ol", true);
 	img = mlx_new_image(mlx, WIDTH, HEIGHT);
 	mlx_key_hook(mlx, quit, NULL);
