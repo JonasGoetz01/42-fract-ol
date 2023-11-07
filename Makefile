@@ -12,7 +12,8 @@ SRCDIR := ./src/
 
 SRCS	:=  $(SRCDIR)fractol.c \
 			$(SRCDIR)hooks.c \
-			$(SRCDIR)utils.c
+			$(SRCDIR)utils.c \
+			$(SRCDIR)algorithms.c
 
 OBJS	:= ${SRCS:.c=.o}
 
