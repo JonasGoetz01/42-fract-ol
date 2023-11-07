@@ -6,11 +6,11 @@
 /*   By: jgotz <jgotz@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 03:19:31 by jgotz             #+#    #+#             */
-/*   Updated: 2023/11/07 03:23:35 by jgotz            ###   ########.fr       */
+/*   Updated: 2023/11/07 10:41:54 by jgotz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "../include/fractol.h"
 
 double	map(double value, double start1, double stop1, double start2,
 		double stop2)

@@ -6,11 +6,11 @@
 /*   By: jgotz <jgotz@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 03:30:37 by jgotz             #+#    #+#             */
-/*   Updated: 2023/11/07 06:23:38 by jgotz            ###   ########.fr       */
+/*   Updated: 2023/11/07 10:41:23 by jgotz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "../include/fractol.h"
 
 void	mandelbrot(void *param)
 {
@@ -19,15 +19,16 @@ void	mandelbrot(void *param)
 	t_fract		*mbt;
 
 	mbt = (t_fract *)param;
-	helper.x = 0;
 	helper.y = 0;
 	while (helper.y < mbt->height)
 	{
 		helper.x = 0;
 		while (helper.x < mbt->width)
 		{
-			helper.a = map(helper.x, 0, mbt->width, -(mbt->zoom), mbt->zoom);
-			helper.b = map(helper.y, 0, mbt->height, -(mbt->zoom), mbt->zoom);
+			helper.a = map(helper.x, 0, mbt->width, -(mbt->zoom) + mbt->offsetX,
+					mbt->zoom + mbt->offsetX);
+			helper.b = map(helper.y, 0, mbt->height, -(mbt->zoom)
+					+ mbt->offsetY, mbt->zoom + mbt->offsetY);
 			helper.ca = helper.a;
 			helper.cb = helper.b;
 			helper.n = 0;
@@ -41,8 +42,10 @@ void	mandelbrot(void *param)
 					break ;
 				helper.n++;
 			}
-			color = map(helper.n, 0, MAX_ITERATIONS, 0, 1);
-			color = map(sqrt(color), 0, 1, 0, 255);
+			if (helper.n == MAX_ITERATIONS)
+				color = 0;
+			else
+				color = map(helper.n, 0, MAX_ITERATIONS, 0, 255);
 			mlx_put_pixel(mbt->img, helper.x, helper.y, get_rgba(color, color,
 					color, 255));
 			helper.x++;
@@ -68,8 +71,10 @@ void	julia(void *param)
 		helper.x = 0;
 		while (helper.x < jlt->width)
 		{
-			helper.a = map(helper.x, 0, jlt->width, -(jlt->zoom), jlt->zoom);
-			helper.b = map(helper.y, 0, jlt->height, -(jlt->zoom), jlt->zoom);
+			helper.a = map(helper.x, 0, jlt->width, -(jlt->zoom) + jlt->offsetX,
+					jlt->zoom + jlt->offsetX);
+			helper.b = map(helper.y, 0, jlt->height, -(jlt->zoom)
+					+ jlt->offsetY, jlt->zoom + jlt->offsetY);
 			helper.n = 0;
 			while (helper.n < MAX_ITERATIONS)
 			{

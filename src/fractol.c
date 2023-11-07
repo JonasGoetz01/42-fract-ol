@@ -6,11 +6,11 @@
 /*   By: jgotz <jgotz@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 16:33:48 by jgotz             #+#    #+#             */
-/*   Updated: 2023/11/07 06:13:07 by jgotz            ###   ########.fr       */
+/*   Updated: 2023/11/07 10:41:19 by jgotz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "../include/fractol.h"
 
 void	print_usage(void)
 {
@@ -50,6 +50,8 @@ int	main(int argc, char **argv)
 	mbt.zoom = 2.5;
 	mbt.width = WIDTH;
 	mbt.height = HEIGHT;
+	mbt.offsetX = 0;
+	mbt.offsetY = 0;
 	mlx = mlx_init(WIDTH, HEIGHT, "fract'ol", true);
 	img = mlx_new_image(mlx, WIDTH, HEIGHT);
 	mlx_key_hook(mlx, quit, NULL);
