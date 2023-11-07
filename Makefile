@@ -17,7 +17,7 @@ SRCS	:=  $(SRCDIR)fractol.c \
 
 OBJS	:= ${SRCS:.c=.o}
 
-CC		:= cc
+CC		:= gcc
 
 all: libmlx $(NAME)
 

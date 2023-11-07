@@ -6,7 +6,7 @@
 /*   By: jgotz <jgotz@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 03:30:37 by jgotz             #+#    #+#             */
-/*   Updated: 2023/11/07 11:46:50 by jgotz            ###   ########.fr       */
+/*   Updated: 2023/11/07 15:10:35 by jgotz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ void	mandelbrot(void *param)
 		helper.x = 0;
 		while (helper.x < mbt->width)
 		{
-			helper.a = map(helper.x, 0, mbt->width, -(mbt->zoom) + mbt->offsetX,
-					mbt->zoom + mbt->offsetX);
+			helper.a = map(helper.x, 0, mbt->width, -(mbt->zoom) + mbt->offsetx,
+					mbt->zoom + mbt->offsetx);
 			helper.b = map(helper.y, 0, mbt->height, -(mbt->zoom)
-					+ mbt->offsetY, mbt->zoom + mbt->offsetY);
+					+ mbt->offsety, mbt->zoom + mbt->offsety);
 			helper.ca = helper.a;
 			helper.cb = helper.b;
 			helper.n = 0;
@@ -71,10 +71,10 @@ void	julia(void *param)
 		helper.x = 0;
 		while (helper.x < jlt->width)
 		{
-			helper.a = map(helper.x, 0, jlt->width, -(jlt->zoom) + jlt->offsetX,
-					jlt->zoom + jlt->offsetX);
+			helper.a = map(helper.x, 0, jlt->width, -(jlt->zoom) + jlt->offsetx,
+					jlt->zoom + jlt->offsetx);
 			helper.b = map(helper.y, 0, jlt->height, -(jlt->zoom)
-					+ jlt->offsetY, jlt->zoom + jlt->offsetY);
+					+ jlt->offsety, jlt->zoom + jlt->offsety);
 			helper.n = 0;
 			while (helper.n < MAX_ITERATIONS)
 			{

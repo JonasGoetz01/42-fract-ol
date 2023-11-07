@@ -6,7 +6,7 @@
 /*   By: jgotz <jgotz@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 16:28:14 by jgotz             #+#    #+#             */
-/*   Updated: 2023/11/07 11:48:47 by jgotz            ###   ########.fr       */
+/*   Updated: 2023/11/07 14:33:14 by jgotz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ typedef struct s_fract
 	int			set;
 	int			width;
 	int			height;
-	double		offsetX;
-	double		offsetY;
+	double		offsetx;
+	double		offsety;
 }				t_fract;
 
 typedef struct s_helper
