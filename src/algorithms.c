@@ -6,7 +6,7 @@
 /*   By: jgotz <jgotz@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 03:30:37 by jgotz             #+#    #+#             */
-/*   Updated: 2023/11/07 03:31:02 by jgotz            ###   ########.fr       */
+/*   Updated: 2023/11/07 03:48:16 by jgotz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void	julia(void *param)
 	double		smooth_color;
 
 	jlt = (t_fract *)param;
+	jlt->ca = -0.8;
+	jlt->cb = 0.156;
 	helper.y = 0;
 	while (helper.y < HEIGHT)
 	{
