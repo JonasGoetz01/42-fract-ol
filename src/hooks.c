@@ -6,7 +6,7 @@
 /*   By: jgotz <jgotz@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 03:20:51 by jgotz             #+#    #+#             */
-/*   Updated: 2023/11/07 14:34:42 by jgotz            ###   ########.fr       */
+/*   Updated: 2023/11/07 16:13:39 by jgotz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ void	quit(mlx_key_data_t keydata, void *param)
 
 	mbt = (t_fract *)param;
 	if (keydata.key == 65361)
-		mbt->offsetx -= 10;
+		mbt->offsetx -= 0.1;
 	else if (keydata.key == 65362)
-		mbt->offsety -= 10;
+		mbt->offsety -= 0.1;
 	else if (keydata.key == 65363)
-		mbt->offsetx += 10;
+		mbt->offsetx += 0.1;
 	else if (keydata.key == 65364)
-		mbt->offsety += 10;
+		mbt->offsety += 0.1;
 	else if (keydata.key == MLX_KEY_ESCAPE)
 		exit(0);
 	if (mbt->set == 1)
