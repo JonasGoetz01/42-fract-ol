@@ -6,7 +6,7 @@
 /*   By: jgotz <jgotz@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 03:20:51 by jgotz             #+#    #+#             */
-/*   Updated: 2023/11/07 16:13:39 by jgotz            ###   ########.fr       */
+/*   Updated: 2023/11/07 18:35:44 by jgotz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@ void	quit(mlx_key_data_t keydata, void *param)
 		mbt->offsety += 0.1;
 	else if (keydata.key == MLX_KEY_ESCAPE)
 		exit(0);
+
+	mbt->ca = map(mbt->offsetx, 0, mbt->width, -(mbt->zoom), mbt->zoom);
+	mbt->cb = map(mbt->offsety, 0, mbt->height, -(mbt->zoom), mbt->zoom);
+
 	if (mbt->set == 1)
 		mandelbrot(mbt);
 	else if (mbt->set == 2)
