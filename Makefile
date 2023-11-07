@@ -1,6 +1,6 @@
 NAME	:= fractol
 
-CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast
+CFLAGS	:= -Wextra -Wall -Werror
 
 LIBMLX	:= ./lib/MLX42
 
