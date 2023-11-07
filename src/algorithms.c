@@ -6,7 +6,7 @@
 /*   By: jgotz <jgotz@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 03:30:37 by jgotz             #+#    #+#             */
-/*   Updated: 2023/11/07 03:48:16 by jgotz            ###   ########.fr       */
+/*   Updated: 2023/11/07 06:23:38 by jgotz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ void	mandelbrot(void *param)
 	mbt = (t_fract *)param;
 	helper.x = 0;
 	helper.y = 0;
-	while (helper.y < HEIGHT)
+	while (helper.y < mbt->height)
 	{
 		helper.x = 0;
-		while (helper.x < WIDTH)
+		while (helper.x < mbt->width)
 		{
-			helper.a = map(helper.x, 0, WIDTH, -(mbt->zoom), mbt->zoom);
-			helper.b = map(helper.y, 0, HEIGHT, -(mbt->zoom), mbt->zoom);
+			helper.a = map(helper.x, 0, mbt->width, -(mbt->zoom), mbt->zoom);
+			helper.b = map(helper.y, 0, mbt->height, -(mbt->zoom), mbt->zoom);
 			helper.ca = helper.a;
 			helper.cb = helper.b;
 			helper.n = 0;
@@ -63,13 +63,13 @@ void	julia(void *param)
 	jlt->ca = -0.8;
 	jlt->cb = 0.156;
 	helper.y = 0;
-	while (helper.y < HEIGHT)
+	while (helper.y < jlt->height)
 	{
 		helper.x = 0;
-		while (helper.x < WIDTH)
+		while (helper.x < jlt->width)
 		{
-			helper.a = map(helper.x, 0, WIDTH, -(jlt->zoom), jlt->zoom);
-			helper.b = map(helper.y, 0, HEIGHT, -(jlt->zoom), jlt->zoom);
+			helper.a = map(helper.x, 0, jlt->width, -(jlt->zoom), jlt->zoom);
+			helper.b = map(helper.y, 0, jlt->height, -(jlt->zoom), jlt->zoom);
 			helper.n = 0;
 			while (helper.n < MAX_ITERATIONS)
 			{
