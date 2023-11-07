@@ -6,38 +6,19 @@
 /*   By: jgotz <jgotz@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 16:33:48 by jgotz             #+#    #+#             */
-/*   Updated: 2023/11/06 10:55:56 by jgotz            ###   ########.fr       */
+/*   Updated: 2023/11/07 03:23:38 by jgotz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-#include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
-
-#define WIDTH 500
-#define HEIGHT 500
-#define MAX_ITERATIONS 200
-#define LIMIT 16
-
-double	map(double value, double start1, double stop1, double start2,
-		double stop2)
-{
-	return (start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1)));
-}
-
-int	get_rgba(int r, int g, int b, int a)
-{
-	return (r << 24 | g << 16 | b << 8 | a);
-}
 
 void	mandelbrot(void *param)
 {
-	int				color;
-	t_helper		helper;
-	t_mandelbrot	*mbt;
+	int			color;
+	t_helper	helper;
+	t_fract		*mbt;
 
-	mbt = (t_mandelbrot *)param;
+	mbt = (t_fract *)param;
 	helper.x = 0;
 	helper.y = 0;
 	while (helper.y < HEIGHT)
@@ -45,8 +26,8 @@ void	mandelbrot(void *param)
 		helper.x = 0;
 		while (helper.x < WIDTH)
 		{
-			helper.a = map(helper.x, 0, WIDTH, -(*mbt->zoom), *mbt->zoom);
-			helper.b = map(helper.y, 0, HEIGHT, -(*mbt->zoom), *mbt->zoom);
+			helper.a = map(helper.x, 0, WIDTH, -(mbt->zoom), mbt->zoom);
+			helper.b = map(helper.y, 0, HEIGHT, -(mbt->zoom), mbt->zoom);
 			helper.ca = helper.a;
 			helper.cb = helper.b;
 			helper.n = 0;
@@ -71,27 +52,73 @@ void	mandelbrot(void *param)
 	mlx_image_to_window(mbt->mlx, mbt->img, 0, 0);
 }
 
-void	scroll(double a, double b, void *zoom)
+void	julia(void *param)
 {
-	a++;
-	*(double *)zoom -= b * 0.01;
+	int			color;
+	t_helper	helper;
+	t_fract		*jlt;
+	double		smooth_color;
+
+	jlt = (t_fract *)param;
+	helper.y = 0;
+	while (helper.y < HEIGHT)
+	{
+		helper.x = 0;
+		while (helper.x < WIDTH)
+		{
+			helper.a = map(helper.x, 0, WIDTH, -(jlt->zoom), jlt->zoom);
+			helper.b = map(helper.y, 0, HEIGHT, -(jlt->zoom), jlt->zoom);
+			helper.n = 0;
+			while (helper.n < MAX_ITERATIONS)
+			{
+				helper.aa = helper.a * helper.a - helper.b * helper.b;
+				helper.bb = 2 * helper.a * helper.b;
+				helper.a = helper.aa + jlt->ca;
+				helper.b = helper.bb + jlt->cb;
+				if (helper.a * helper.a + helper.b * helper.b > LIMIT)
+					break ;
+				helper.n++;
+			}
+			smooth_color = helper.n + 1 - log(log(sqrt(helper.a * helper.a
+							+ helper.b * helper.b))) / log(2.0);
+			color = map(smooth_color, 0, MAX_ITERATIONS, 0, 255);
+			mlx_put_pixel(jlt->img, helper.x, helper.y, get_rgba(color, color,
+					color, 255));
+			helper.x++;
+		}
+		helper.y++;
+	}
+	mlx_image_to_window(jlt->mlx, jlt->img, 0, 0);
 }
 
-int	main(void)
+void	print_usage(void)
 {
-	t_mandelbrot	mbt;
-	mlx_t			*mlx;
-	mlx_image_t		*img;
-	double			zoom;
+	ft_printf("Usage: ./fractol [mandelbrot | julia]\n");
+	exit(-1);
+}
 
-	zoom = 2.5;
+int	main(int argc, char **argv)
+{
+	t_fract		mbt;
+	mlx_t		*mlx;
+	mlx_image_t	*img;
+
+	if (argc < 2)
+		print_usage();
+	if (!ft_strncmp(argv[1], "mandelbrot", 11))
+		mbt.set = 1;
+	else if (!ft_strncmp(argv[1], "julia", 6))
+		mbt.set = 2;
+	else
+		print_usage();
+	mbt.zoom = 2.5;
 	mlx = mlx_init(WIDTH, HEIGHT, "fract'ol", true);
 	img = mlx_new_image(mlx, WIDTH, HEIGHT);
-	mlx_scroll_hook(mlx, scroll, &zoom);
+	mlx_key_hook(mlx, quit, NULL);
+	mlx_scroll_hook(mlx, scroll, &mbt);
 	mbt.img = img;
 	mbt.mlx = mlx;
-	mbt.zoom = &zoom;
-	mlx_loop_hook(mlx, mandelbrot, &mbt);
+	scroll(0, 0, &mbt);
 	mlx_loop(mlx);
 	return (0);
 }
