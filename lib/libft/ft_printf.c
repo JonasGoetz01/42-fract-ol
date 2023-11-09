@@ -6,7 +6,7 @@
 /*   By: jgotz <jgotz@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 19:50:26 by jgotz             #+#    #+#             */
-/*   Updated: 2023/10/16 17:12:43 by jgotz            ###   ########.fr       */
+/*   Updated: 2023/11/09 15:55:57 by jgotz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,10 @@ static int	printf_helper(const char *str, int *i, va_list args)
 int	ft_printf(const char *str, ...)
 {
 	va_list	args;
-	int		ret;
 	int		i;
 	int		len;
 	int		l;
 
-	ret = 0;
 	i = 0;
 	len = 0;
 	l = 0;
