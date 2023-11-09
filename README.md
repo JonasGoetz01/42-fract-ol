@@ -8,4 +8,4 @@
 ![Julia Set](<assets/julia.png>)
 
 ## Subject
-<embed src="assets/en.subject.pdf" type="application/pdf" width="100%" height="600px" />
+[Subject]](assets/en.subject.pdf)
