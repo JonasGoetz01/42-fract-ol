@@ -6,7 +6,7 @@
 /*   By: jgotz <jgotz@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 03:19:31 by jgotz             #+#    #+#             */
-/*   Updated: 2023/11/09 15:54:51 by jgotz            ###   ########.fr       */
+/*   Updated: 2023/11/09 16:17:58 by jgotz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,22 @@ int	isdigitown(char c)
 
 double	strtodo(const char *str)
 {
+	int		sign;
+	double	result;
+	double	fraction;
+	int		exponentSign;
+	int		exponent;
+
 	while (isspaceown(*str))
 	{
 		str++;
 	}
-	int sign = 1;
+	sign = 1;
 	if (*str == '-' || *str == '+')
 	{
 		sign = (*str++ == '-') ? -1 : 1;
 	}
-	double result = 0.0;
+	result = 0.0;
 	while (isdigitown(*str))
 	{
 		result = result * 10.0 + (*str - '0');
@@ -54,7 +60,7 @@ double	strtodo(const char *str)
 	if (*str == '.')
 	{
 		str++;
-		double fraction = 1.0;
+		fraction = 1.0;
 		while (isdigitown(*str))
 		{
 			fraction /= 10.0;
@@ -65,13 +71,12 @@ double	strtodo(const char *str)
 	if (*str == 'e' || *str == 'E')
 	{
 		str++;
-		int exponentSign = 1;
+		exponentSign = 1;
 		if (*str == '-' || *str == '+')
 		{
 			exponentSign = (*str++ == '-') ? -1 : 1;
 		}
-
-		int exponent = 0;
+		exponent = 0;
 		while (isdigitown(*str))
 		{
 			exponent = exponent * 10 + (*str - '0');
