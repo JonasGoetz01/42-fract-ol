@@ -6,6 +6,7 @@
 ## Generated Images with this code
 
 ![Julia Set](<assets/julia.png>)
+![Mandelbrot Set](<assets/mandelbrot.png>)
 
 ## Subject
 [Subject](assets/en.subject.pdf)
