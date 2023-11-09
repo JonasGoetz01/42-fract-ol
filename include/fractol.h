@@ -6,7 +6,7 @@
 /*   By: jgotz <jgotz@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 16:28:14 by jgotz             #+#    #+#             */
-/*   Updated: 2023/11/07 14:33:14 by jgotz            ###   ########.fr       */
+/*   Updated: 2023/11/09 15:58:01 by jgotz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,7 @@ void			quit(mlx_key_data_t keydata, void *param);
 double			map(double value, double start1, double stop1, double start2,
 					double stop2);
 int				get_rgba(int r, int g, int b, int a);
+double			strtodo(const char *str);
+void			resize(int a, int b, void *param);
 
 #endif
