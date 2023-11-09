@@ -6,7 +6,7 @@
 /*   By: jgotz <jgotz@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 03:19:31 by jgotz             #+#    #+#             */
-/*   Updated: 2023/11/07 22:51:38 by jgotz            ###   ########.fr       */
+/*   Updated: 2023/11/09 15:54:51 by jgotz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,20 @@ int	get_rgba(int r, int g, int b, int a)
 	return (r << 24 | g << 16 | b << 8 | a);
 }
 
-double strtodo(const char* str)
+int	isspaceown(char c)
 {
-	while (isspace(*str))
+	return (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f'
+		|| c == '\r');
+}
+
+int	isdigitown(char c)
+{
+	return (c >= '0' && c <= '9');
+}
+
+double	strtodo(const char *str)
+{
+	while (isspaceown(*str))
 	{
 		str++;
 	}
@@ -35,7 +46,7 @@ double strtodo(const char* str)
 		sign = (*str++ == '-') ? -1 : 1;
 	}
 	double result = 0.0;
-	while (isdigit(*str))
+	while (isdigitown(*str))
 	{
 		result = result * 10.0 + (*str - '0');
 		str++;
@@ -44,7 +55,7 @@ double strtodo(const char* str)
 	{
 		str++;
 		double fraction = 1.0;
-		while (isdigit(*str))
+		while (isdigitown(*str))
 		{
 			fraction /= 10.0;
 			result += (*str - '0') * fraction;
@@ -61,7 +72,7 @@ double strtodo(const char* str)
 		}
 
 		int exponent = 0;
-		while (isdigit(*str))
+		while (isdigitown(*str))
 		{
 			exponent = exponent * 10 + (*str - '0');
 			str++;
@@ -71,5 +82,5 @@ double strtodo(const char* str)
 			result = (exponentSign == 1) ? result * 10.0 : result / 10.0;
 		}
 	}
-	return sign * result;
+	return (sign * result);
 }
