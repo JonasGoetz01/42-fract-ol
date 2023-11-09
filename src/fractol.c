@@ -6,7 +6,7 @@
 /*   By: jgotz <jgotz@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 16:33:48 by jgotz             #+#    #+#             */
-/*   Updated: 2023/11/09 15:58:04 by jgotz            ###   ########.fr       */
+/*   Updated: 2023/11/09 17:20:36 by jgotz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	main(int argc, char **argv)
 	mbt.offsety = 0.0;
 	mlx = mlx_init(WIDTH, HEIGHT, "fract'ol", true);
 	img = mlx_new_image(mlx, WIDTH, HEIGHT);
-	mlx_key_hook(mlx, quit, NULL);
+	mlx_key_hook(mlx, quit, &mbt);
 	mlx_scroll_hook(mlx, scroll, &mbt);
 	mlx_resize_hook(mlx, resize, &mbt);
 	mbt.img = img;
