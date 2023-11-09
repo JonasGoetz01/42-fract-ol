@@ -6,7 +6,7 @@
 /*   By: jgotz <jgotz@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 03:20:51 by jgotz             #+#    #+#             */
-/*   Updated: 2023/11/07 18:35:44 by jgotz            ###   ########.fr       */
+/*   Updated: 2023/11/09 15:49:19 by jgotz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,19 @@ void	scroll(double a, double b, void *mbt)
 		mandelbrot(mbt);
 	else if (((t_fract *)mbt)->set == 2)
 		julia(mbt);
+}
+
+void	resize(int a, int b, void *param)
+{
+	t_fract	*fract;
+
+	fract = (t_fract *)param;
+	fract->height = b;
+	fract->width = a;
+	mlx_delete_image(fract->mlx, fract->img);
+	fract->img = mlx_new_image(fract->mlx, a, b);
+	if (fract->set == 1)
+		mandelbrot(fract);
+	else if (fract->set == 2)
+		julia(fract);
 }
