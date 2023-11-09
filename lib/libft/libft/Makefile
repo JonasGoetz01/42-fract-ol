@@ -43,7 +43,7 @@ INCLUDES	= libft.h
 CFLAGS	= -Wall -Wextra -Werror
 
 .c.o:
-	cc ${CFLAGS} -c $< -o ${<:.c=.o} -I ${INCLUDES}
+	cc ${CFLAGS} -c $< -o ${<:.c=.o}
 
 ${NAME}: ${OBJECTS}
 	ar rc ${NAME} ${OBJECTS}

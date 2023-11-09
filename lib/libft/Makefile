@@ -21,7 +21,7 @@ LIBFT_DIR	= ./libft
 LIBFT		= $(LIBFT_DIR)/libft.a
 
 .c.o:
-	cc ${CFLAGS} -c $< -o ${<:.c=.o} -I ${INCLUDES}
+	cc ${CFLAGS} -c $< -o ${<:.c=.o}
 
 ${NAME}: ${OBJECTS} $(LIBFT)
 	cp $(LIBFT) $(NAME)
