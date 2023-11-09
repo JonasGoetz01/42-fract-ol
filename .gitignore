@@ -3,6 +3,7 @@
 *.o
 *.out
 .vscode/
+.idea/
 fractol
 README.md
 
