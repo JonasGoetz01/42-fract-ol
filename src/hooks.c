@@ -6,7 +6,7 @@
 /*   By: jgotz <jgotz@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 03:20:51 by jgotz             #+#    #+#             */
-/*   Updated: 2023/11/10 15:15:33 by jgotz            ###   ########.fr       */
+/*   Updated: 2023/11/10 15:27:51 by jgotz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,26 @@ void	quit(mlx_key_data_t keydata, void *param)
 
 void	scroll(double a, double b, void *mbt)
 {
+	t_fract	*fract;
+	double	cursor_rel_x;
+	double	cursor_rel_y;
+	double	zoom_factor;
+
 	a++;
+	fract = (t_fract *)mbt;
+	cursor_rel_x = (fract->mouse_x) / fract->width;
+	cursor_rel_y = (fract->mouse_y) / fract->height;
 	if (b > 0)
-		((t_fract *)mbt)->zoom -= 0.1;
+		zoom_factor = 1.1;
 	else
-		((t_fract *)mbt)->zoom += 0.01;
-	if (((t_fract *)mbt)->set == 1)
-		mandelbrot(mbt);
-	else if (((t_fract *)mbt)->set == 2)
-		julia(mbt);
+		zoom_factor = 0.9;
+	fract->zoom *= zoom_factor;
+	fract->offsetx += (cursor_rel_x - 0.5) * (1.0 - zoom_factor);
+	fract->offsety += (cursor_rel_y - 0.5) * (1.0 - zoom_factor);
+	if (fract->set == 1)
+		mandelbrot(fract);
+	else if (fract->set == 2)
+		julia(fract);
 }
 
 void	mouse_event(double xpos, double ypos, void *param)
