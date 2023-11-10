@@ -6,7 +6,7 @@
 /*   By: jgotz <jgotz@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 03:30:37 by jgotz             #+#    #+#             */
-/*   Updated: 2023/11/10 13:39:10 by jgotz            ###   ########.fr       */
+/*   Updated: 2023/11/10 14:39:32 by jgotz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,11 @@ void	mandelbrot(void *param)
 	mlx_image_to_window(mbt->mlx, mbt->img, 0, 0);
 }
 
-void	calc_color(int *color, double *smooth_color, t_helper *helper,
-		t_fract *jlt)
+void	calc_color(int *color, double *smooth_color, t_helper *helper)
 {
 	*smooth_color = helper->n + 1 - log(log(sqrt(helper->a * helper->a
 					+ helper->b * helper->b))) / log(2.0);
 	*color = (int)(*smooth_color / MAX_ITERATIONS * 255);
-	mlx_put_pixel(jlt->img, helper->x, helper->y, get_rgba(*color, *color,
-			*color, 255));
 }
 
 void	julia_routine(t_fract *jlt, t_helper *helper)
@@ -93,7 +90,9 @@ void	julia_routine(t_fract *jlt, t_helper *helper)
 				break ;
 			helper->n++;
 		}
-		calc_color(&color, &smooth_color, helper, jlt);
+		calc_color(&color, &smooth_color, helper);
+		mlx_put_pixel(jlt->img, helper->x, helper->y, get_rgba(color, color,
+				color, 255));
 		helper->x++;
 	}
 }

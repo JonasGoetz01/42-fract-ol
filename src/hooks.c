@@ -6,7 +6,7 @@
 /*   By: jgotz <jgotz@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 03:20:51 by jgotz             #+#    #+#             */
-/*   Updated: 2023/11/10 13:41:01 by jgotz            ###   ########.fr       */
+/*   Updated: 2023/11/10 14:48:23 by jgotz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 void	quit(mlx_key_data_t keydata, void *param)
 {
 	t_fract	*mbt;
-	double	range_x;
-	double	range_y;
 
 	mbt = (t_fract *)param;
 	if (keydata.key == MLX_KEY_RIGHT)
@@ -31,10 +29,6 @@ void	quit(mlx_key_data_t keydata, void *param)
 		exit(0);
 	else
 		return ;
-	range_x = mbt->width / mbt->zoom;
-	range_y = mbt->height / mbt->zoom;
-	mbt->ca = mbt->offsetx / mbt->width * range_x - range_x / 2;
-	mbt->cb = mbt->offsety / mbt->height * range_y - range_y / 2;
 	if (mbt->set == 1)
 		mandelbrot(mbt);
 	else if (mbt->set == 2)
@@ -57,12 +51,24 @@ void	scroll(double a, double b, void *mbt)
 void	resize(int a, int b, void *param)
 {
 	t_fract	*fract;
+	double	aspect_ratio;
+	double	new_aspect_ratio;
 
 	fract = (t_fract *)param;
-	fract->height = b;
-	fract->width = a;
+	aspect_ratio = (double)fract->width / (double)fract->height;
+	new_aspect_ratio = (double)a / (double)b;
+	if (aspect_ratio < new_aspect_ratio)
+	{
+		fract->width = a;
+		fract->height = a / aspect_ratio;
+	}
+	else
+	{
+		fract->height = b;
+		fract->width = b * aspect_ratio;
+	}
 	mlx_delete_image(fract->mlx, fract->img);
-	fract->img = mlx_new_image(fract->mlx, a, b);
+	fract->img = mlx_new_image(fract->mlx, fract->width, fract->height);
 	if (fract->set == 1)
 		mandelbrot(fract);
 	else if (fract->set == 2)
