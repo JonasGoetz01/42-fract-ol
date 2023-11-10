@@ -6,7 +6,7 @@
 /*   By: jgotz <jgotz@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 16:33:48 by jgotz             #+#    #+#             */
-/*   Updated: 2023/11/10 14:41:06 by jgotz            ###   ########.fr       */
+/*   Updated: 2023/11/10 15:12:38 by jgotz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int	main(int argc, char **argv)
 	mlx_key_hook(mlx, quit, &mbt);
 	mlx_scroll_hook(mlx, scroll, &mbt);
 	mlx_resize_hook(mlx, resize, &mbt);
+	mlx_cursor_hook(mlx, mouse_event, &mbt);
 	mbt.img = img;
 	mbt.mlx = mlx;
 	scroll(0, 0, &mbt);
