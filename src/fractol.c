@@ -6,7 +6,7 @@
 /*   By: jgotz <jgotz@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 16:33:48 by jgotz             #+#    #+#             */
-/*   Updated: 2023/11/09 17:20:36 by jgotz            ###   ########.fr       */
+/*   Updated: 2023/11/10 10:28:37 by jgotz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,35 @@ void	print_usage(void)
 	exit(-1);
 }
 
+void	routines(int argc, char **argv, t_fract *mbt)
+{
+	if (!ft_strncmp(argv[1], "mandelbrot", 11))
+	{
+		if (argc == 2)
+			mbt->set = 1;
+		else
+			print_usage();
+	}
+	else if (!ft_strncmp(argv[1], "julia", 6))
+	{
+		mbt->set = 2;
+		if (argc == 4)
+		{
+			mbt->ca = strtodo(argv[2]);
+			mbt->cb = strtodo(argv[3]);
+		}
+		else if (argc == 2)
+		{
+			mbt->ca = -0.8;
+			mbt->cb = 0.156;
+		}
+		else
+			print_usage();
+	}
+	else
+		print_usage();
+}
+
 int	main(int argc, char **argv)
 {
 	t_fract		mbt;
@@ -29,33 +58,9 @@ int	main(int argc, char **argv)
 
 	if (argc < 2)
 		print_usage();
-	if (!ft_strncmp(argv[1], "mandelbrot", 11))
-	{
-		if (argc == 2)
-			mbt.set = 1;
-		else
-			print_usage();
-	}
-	else if (!ft_strncmp(argv[1], "julia", 6))
-	{
-		mbt.set = 2;
-		if (argc == 4)
-		{
-			mbt.ca = strtodo(argv[2]);
-			mbt.cb = strtodo(argv[3]);
-		}
-		else if (argc == 2)
-		{
-			mbt.ca = -0.8;
-			mbt.cb = 0.156;
-		}
-		else
-		{
-			print_usage();
-		}
-	}
-	else
-		print_usage();
+	routines(argc, argv, &mbt);
+	img = NULL;
+	mlx = NULL;
 	mbt.zoom = 2.5;
 	mbt.width = WIDTH;
 	mbt.height = HEIGHT;
