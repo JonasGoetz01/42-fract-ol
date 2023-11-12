@@ -6,7 +6,7 @@
 /*   By: jgotz <jgotz@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 16:33:48 by jgotz             #+#    #+#             */
-/*   Updated: 2023/11/10 15:12:38 by jgotz            ###   ########.fr       */
+/*   Updated: 2023/11/12 17:38:01 by jgotz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 void	print_usage(void)
 {
-	ft_printf("Usage: ./fractol [mandelbrot | julia]\n");
+	ft_printf("Usage: ./fractol [mandelbrot | julia | burning-ship]\n");
 	ft_printf("\t-julia\n");
 	ft_printf("\t-julia [ca] [cb]\n");
 	ft_printf("\t-mandelbrot\n");
+	ft_printf("\t-burning-ship\n");
 	exit(-1);
 }
 
@@ -43,6 +44,13 @@ void	routines(int argc, char **argv, t_fract *mbt)
 			mbt->ca = -0.8;
 			mbt->cb = 0.156;
 		}
+		else
+			print_usage();
+	}
+	else if (!ft_strncmp(argv[1], "burning-ship", 13))
+	{
+		if (argc == 2)
+			mbt->set = 3;
 		else
 			print_usage();
 	}
