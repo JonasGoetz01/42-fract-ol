@@ -6,7 +6,7 @@
 /*   By: jgotz <jgotz@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 16:28:14 by jgotz             #+#    #+#             */
-/*   Updated: 2023/11/10 15:15:04 by jgotz            ###   ########.fr       */
+/*   Updated: 2023/11/12 17:33:25 by jgotz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_helper
 	double		cb;
 	double		aa;
 	double		bb;
+	double		ab;
 	int			n;
 	int			x;
 	int			y;
@@ -62,5 +63,7 @@ int				get_rgba(int r, int g, int b, int a);
 double			strtodo(const char *str);
 void			resize(int a, int b, void *param);
 void			mouse_event(double xpos, double ypos, void *param);
+void			burning_ship(void *param);
+void 			sierpinski_triangle(void *param);
 
 #endif
