@@ -6,11 +6,11 @@
 /*   By: jgotz <jgotz@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 03:19:31 by jgotz             #+#    #+#             */
-/*   Updated: 2023/11/13 11:32:07 by jgotz            ###   ########.fr       */
+/*   Updated: 2023/11/13 12:03:33 by jgotz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fractol.h"
+#include "fractol.h"
 
 int	get_rgba(int r, int g, int b, int a)
 {

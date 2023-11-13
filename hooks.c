@@ -6,11 +6,11 @@
 /*   By: jgotz <jgotz@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 03:20:51 by jgotz             #+#    #+#             */
-/*   Updated: 2023/11/13 11:46:42 by jgotz            ###   ########.fr       */
+/*   Updated: 2023/11/13 12:03:08 by jgotz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fractol.h"
+#include "fractol.h"
 
 void	quit(mlx_key_data_t keydata, void *param)
 {

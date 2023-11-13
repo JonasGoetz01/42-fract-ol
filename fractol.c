@@ -6,11 +6,11 @@
 /*   By: jgotz <jgotz@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 16:33:48 by jgotz             #+#    #+#             */
-/*   Updated: 2023/11/13 11:58:29 by jgotz            ###   ########.fr       */
+/*   Updated: 2023/11/13 12:02:53 by jgotz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fractol.h"
+#include "fractol.h"
 
 void	print_usage(void)
 {

@@ -6,11 +6,11 @@
 /*   By: jgotz <jgotz@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 03:30:37 by jgotz             #+#    #+#             */
-/*   Updated: 2023/11/13 11:33:47 by jgotz            ###   ########.fr       */
+/*   Updated: 2023/11/13 12:02:44 by jgotz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fractol.h"
+#include "fractol.h"
 
 void	mandelbrot_routine(t_fract *mbt, t_helper *helper)
 {

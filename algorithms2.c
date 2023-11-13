@@ -6,11 +6,11 @@
 /*   By: jgotz <jgotz@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 11:21:30 by jgotz             #+#    #+#             */
-/*   Updated: 2023/11/13 11:33:00 by jgotz            ###   ########.fr       */
+/*   Updated: 2023/11/13 12:02:48 by jgotz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fractol.h"
+#include "fractol.h"
 
 void	bs_helper(t_helper helper, t_fract *bs)
 {

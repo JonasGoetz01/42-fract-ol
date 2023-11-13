@@ -8,7 +8,7 @@ HEADERS	:= -I ./include -I $(LIBMLX)/include
 
 LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 
-SRCDIR := ./src/
+SRCDIR := ./
 
 SRCS	:=  $(SRCDIR)fractol.c \
 			$(SRCDIR)hooks.c \
