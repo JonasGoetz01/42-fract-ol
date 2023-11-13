@@ -6,7 +6,7 @@
 /*   By: jgotz <jgotz@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 03:30:37 by jgotz             #+#    #+#             */
-/*   Updated: 2023/11/12 17:49:51 by jgotz            ###   ########.fr       */
+/*   Updated: 2023/11/13 11:33:47 by jgotz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ void	mandelbrot(void *param)
 				color = 0;
 			else
 				color = (helper.n * 255) / MAX_ITERATIONS;
-			mlx_put_pixel(mbt->img, helper.x, helper.y, get_rgba(color, color,
-					color, 255));
+			mlx_put_pixel(mbt->img, helper.x, helper.y,
+				get_vibrant_rgba(color));
 			helper.x++;
 		}
 		helper.y++;
@@ -92,8 +92,7 @@ void	julia_routine(t_fract *jlt, t_helper *helper)
 			helper->n++;
 		}
 		calc_color(&color, helper);
-		mlx_put_pixel(jlt->img, helper->x, helper->y, get_rgba(color, color,
-				color, 255));
+		mlx_put_pixel(jlt->img, helper->x, helper->y, get_vibrant_rgba(color));
 		helper->x++;
 	}
 }
@@ -111,50 +110,4 @@ void	julia(void *param)
 		helper.y++;
 	}
 	mlx_image_to_window(jlt->mlx, jlt->img, 0, 0);
-}
-
-//algorithm for the burning ship fractal
-
-void	burning_ship(void *param)
-{
-	int			color;
-	t_helper	helper;
-	t_fract		*bsf;
-
-	bsf = (t_fract *)param;
-	helper.y = 0;
-	while (helper.y < bsf->height)
-	{
-		helper.x = 0;
-		while (helper.x < bsf->width)
-		{
-			bsf->ca = ((double)helper.x / bsf->width) * (bsf->zoom * 2)
-				- bsf->zoom + bsf->offsetx;
-			bsf->cb = ((double)helper.y / bsf->height) * (bsf->zoom * 2)
-				- bsf->zoom + bsf->offsety;
-			helper.a = 0;
-			helper.b = 0;
-			helper.n = 0;
-			while (helper.n < MAX_ITERATIONS)
-			{
-				helper.aa = helper.a * helper.a;
-				helper.bb = helper.b * helper.b;
-				helper.ab = 2 * fabs(helper.a * helper.b);
-				helper.a = helper.aa - helper.bb + bsf->ca;
-				helper.b = helper.ab - helper.bb + bsf->cb;
-				if (helper.aa + helper.bb > LIMIT)
-					break ;
-				helper.n++;
-			}
-			if (helper.n == MAX_ITERATIONS)
-				color = 0;
-			else
-				color = (int)((helper.n * 255.0) / MAX_ITERATIONS);
-			mlx_put_pixel(bsf->img, helper.x, helper.y, get_rgba(color, color,
-					color, 255));
-			helper.x++;
-		}
-		helper.y++;
-	}
-	mlx_image_to_window(bsf->mlx, bsf->img, 0, 0);
 }
