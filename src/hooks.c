@@ -6,7 +6,7 @@
 /*   By: jgotz <jgotz@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 03:20:51 by jgotz             #+#    #+#             */
-/*   Updated: 2023/11/12 17:38:18 by jgotz            ###   ########.fr       */
+/*   Updated: 2023/11/13 11:46:42 by jgotz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	quit(mlx_key_data_t keydata, void *param)
 		mandelbrot(mbt);
 	else if (mbt->set == 2)
 		julia(mbt);
-	else if(mbt->set == 3)
+	else if (mbt->set == 3)
 		burning_ship(mbt);
 }
 
@@ -59,7 +59,7 @@ void	scroll(double a, double b, void *mbt)
 		mandelbrot(fract);
 	else if (fract->set == 2)
 		julia(fract);
-	else if(fract->set == 3)
+	else if (fract->set == 3)
 		burning_ship(fract);
 }
 
@@ -70,6 +70,28 @@ void	mouse_event(double xpos, double ypos, void *param)
 	fract = (t_fract *)param;
 	fract->mouse_x = xpos;
 	fract->mouse_y = ypos;
+	if (fract->mouse_clicked)
+	{
+		fract->ca = ((double)xpos / fract->width) * (fract->zoom * 2)
+			- fract->zoom + fract->offsetx;
+		fract->cb = ((double)ypos / fract->height) * (fract->zoom * 2)
+			- fract->zoom + fract->offsety;
+		if (fract->set == 2)
+			julia(fract);
+	}
+}
+
+void	mouse_click_event(enum mouse_key mouse_key, enum action action,
+		enum modifier_key modifier_key, void *param)
+{
+	t_fract	*fract;
+
+	fract = (t_fract *)param;
+	(void)modifier_key;
+	if (mouse_key == 0 && action == 1)
+		fract->mouse_clicked = 1;
+	else if (mouse_key == 0 && action == 0)
+		fract->mouse_clicked = 0;
 }
 
 void	resize(int a, int b, void *param)
@@ -97,6 +119,6 @@ void	resize(int a, int b, void *param)
 		mandelbrot(fract);
 	else if (fract->set == 2)
 		julia(fract);
-	else if(fract->set == 3)
+	else if (fract->set == 3)
 		burning_ship(fract);
 }
