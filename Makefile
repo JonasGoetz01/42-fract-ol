@@ -14,6 +14,7 @@ SRCS	:=  $(SRCDIR)fractol.c \
 			$(SRCDIR)hooks.c \
 			$(SRCDIR)utils.c \
 			$(SRCDIR)algorithms.c \
+			$(SRCDIR)algorithms2.c \
 			$(SRCDIR)strtodo.c
 
 OBJS	:= ${SRCS:.c=.o}
