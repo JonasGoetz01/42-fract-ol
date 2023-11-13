@@ -6,7 +6,7 @@
 /*   By: jgotz <jgotz@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 16:28:14 by jgotz             #+#    #+#             */
-/*   Updated: 2023/11/12 17:33:25 by jgotz            ###   ########.fr       */
+/*   Updated: 2023/11/13 11:55:26 by jgotz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 # include <stdio.h>
 # include <stdlib.h>
 
-# define WIDTH 350
-# define HEIGHT 350
+# define WIDTH 700
+# define HEIGHT 700
 # define MAX_ITERATIONS 100
 # define LIMIT 16
 
@@ -38,6 +38,7 @@ typedef struct s_fract
 	double		offsety;
 	double		mouse_x;
 	double		mouse_y;
+	int			mouse_clicked;
 }				t_fract;
 
 typedef struct s_helper
@@ -64,6 +65,9 @@ double			strtodo(const char *str);
 void			resize(int a, int b, void *param);
 void			mouse_event(double xpos, double ypos, void *param);
 void			burning_ship(void *param);
-void 			sierpinski_triangle(void *param);
+void			sierpinski_triangle(void *param);
+void			mouse_click_event(enum mouse_key mouse_key, enum action action,
+					enum modifier_key modifier_key, void *param);
+uint32_t		get_vibrant_rgba(int gradient_value);
 
 #endif
